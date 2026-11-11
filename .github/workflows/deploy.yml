@@ -22,22 +22,21 @@ jobs:
       - name: Baixar código
         uses: actions/checkout@v4
 
-      - name: Configurar Node
-        uses: actions/setup-node@v4
+      - name: Configurar Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 22
-          cache: npm
+          bun-version: latest
 
       - name: Instalar dependências
-        run: npm install
+        run: bun install --frozen-lockfile
 
       - name: Fazer build
-        run: npm run build
+        run: bun run build
 
-      - name: Configurar Pages
+      - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload do site
+      - name: Preparar arquivos do site
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
